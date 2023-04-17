@@ -1,0 +1,106 @@
+// this is the html file that will be rendered and give a button to make a conversation with gpt-4 model.
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Conversational AI</title>
+    <style>
+        body {
+            background-color: #1C2833;
+            color: white;
+            font-family: "Proxima Nova", sans-serif;
+        }
+        .button {
+            border-radius: 50%;
+            width: 600px;
+            height: 600px;
+            font-size: 24px;
+            font-weight: bold;
+            background-color: #3498DB;
+            color: #1C2833;
+            transition: background-color 0.5s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            margin-top: 5%;
+        }
+        .button:hover:not(.active) {
+            background-color: #00FF00;
+        }
+        .button.active {
+            background-color: orange;
+            color: white;
+            transition: background-color 0.5s ease;
+        }
+        .button.inactive {
+            background-color: gray;
+            color: white;
+        }
+        h1 {
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 5%;
+        }
+        h2 {
+            font-size: 36px;
+            text-align: center;
+            margin-top: 5%;
+        }
+        img {
+            width: 200px;
+            display: block;
+            margin: 0 auto;
+        }
+        #output {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 5%;
+        }
+        .normal {
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+<h1>Conversational AI</h1>
+<h2>How may I assist you today?</h2>
+<form method="post" id="run-functions-form">
+    <button type="submit" name="submit" class="button" id="run-functions-button">Ask a question</button>
+</form>
+
+{% if request.method == 'POST' %}
+<div id="output">
+    <p class="normal">Transcript:</p>
+    <p>{{ transcript }}</p>
+    <p class="normal">Answer:</p>
+    <p>{{ answer }}</p>
+</div>
+{% endif %}
+
+<script>
+    // Add event listener to the button to submit the form when clicked
+    document.getElementById('run-functions-button').addEventListener('click', function() {
+        document.getElementById('run-functions-button').classList.add('active');
+        // Change button text to "Recording" when active
+        document.getElementById('run-functions-button').innerHTML = 'Recording';
+        setTimeout(function() {
+            document.getElementById('run-functions-button').classList.remove('active');
+            document.getElementById('run-functions-button').classList.add('inactive');
+            // Change button text to "Generating response..." when inactive
+            document.getElementById('run-functions-button').innerHTML = 'Generating response...';
+            setTimeout(function() {
+                document.getElementById('run-functions-button').classList.remove('inactive');
+                // Reset button text to default when inactive
+                document.getElementById('run-functions-button').innerHTML = 'Ask a question';
+            }, 10000);
+        }, 6000);
+        document.getElementById('run-functions-form').submit();
+    });
+</script>
+
+
+</body>
+</html>
