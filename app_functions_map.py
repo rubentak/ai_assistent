@@ -17,6 +17,8 @@ import pandas as pd
 from geo_google import get_surroundings
 
 
+'''these functions are used to run the chatbot and audio functions in the flask app'''
+
 script_dir = os.path.dirname(os.path.abspath(__file__))
 filename = os.path.join(script_dir, "audio_output.wav")
 preprompt = "You are a Ai audio guide. in the following prompt, look for the name of a city or a location, and give a one line discription of this place. Start with the location as a header."
